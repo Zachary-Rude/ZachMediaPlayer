@@ -146,7 +146,7 @@ namespace Media_Player
 			}
 			else
 			{
-				ini = new IniFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs\\Media Player\\preferences.ini"));
+				ini = new IniFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs\\ZachMediaPlayer\\preferences.ini"));
 			}
 			InternalPlayer.MediaPlayer.SetVideoTitleDisplay(ini.Read("EnableTitleDisplay", "General") == "True" ? (Position)int.Parse(ini.Read("TitleDisplayPosition", "General")) : Position.Disable, 3000);
 
