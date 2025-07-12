@@ -100,7 +100,6 @@ namespace Media_Player
 			{
 				currentMedia = Path.GetFullPath(fileName);
 				Player.OpenMedia(Path.GetFullPath(fileName));
-				backgroundWorker1.RunWorkerAsync(Path.GetExtension(Path.GetFullPath(fileName)));
 				if (Properties.Settings.Default.SaveRecentFiles)
 				{
 					if (Properties.Settings.Default.RecentFiles.Count > Properties.Settings.Default.MaxRecentFiles - 1)
@@ -118,7 +117,7 @@ namespace Media_Player
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message, "ZachmediaPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message, "ZachMediaPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 

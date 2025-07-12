@@ -43,7 +43,7 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=.
-OutputBaseFilename=MediaPlayerSetup
+OutputBaseFilename={#MyAppName}Setup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=classic

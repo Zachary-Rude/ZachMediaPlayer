@@ -205,22 +205,47 @@ namespace Media_Player
 					Debug.WriteLine(string.Format("{0}:{1}", time.Minutes, time.Seconds.ToString().PadLeft(2, '0')));
 					TagLib.File file;
 					bool artRetrieved = false;
-					try
+					bool isVideo = false;
+					foreach (var track in InternalPlayer.MediaPlayer.Media.Tracks)
 					{
-						file = TagLib.File.Create(_currentMedia);
-						if (file.Tag.Pictures.Length >= 1)
+						if (track.TrackType == TrackType.Video)
 						{
-							var bin = file.Tag.Pictures[0].Data.Data;
-							pictureBox2.Image = Image.FromStream(new MemoryStream(bin));
-							var imageSize = pictureBox2.Image.Size;
-							var fitSize = pictureBox2.ClientSize;
-							pictureBox2.SizeMode = imageSize.Width > fitSize.Width || imageSize.Height > fitSize.Height ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.CenterImage;
-							artRetrieved = true;
+							isVideo = true;
+							break;
 						}
 					}
-					catch (Exception)
+					if (!isVideo)
 					{
-
+						try
+						{
+							file = TagLib.File.Create(_currentMedia);
+							if (file.Tag.Pictures.Length >= 1)
+							{
+								var bin = file.Tag.Pictures[0].Data.Data;
+								pictureBox2.Image = Image.FromStream(new MemoryStream(bin));
+								var imageSize = pictureBox2.Image.Size;
+								var fitSize = pictureBox2.ClientSize;
+								pictureBox2.SizeMode = imageSize.Width > fitSize.Width || imageSize.Height > fitSize.Height ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.CenterImage;
+								artRetrieved = true;
+							}
+						}
+						catch (Exception)
+						{
+							if (!string.IsNullOrEmpty(InternalPlayer.MediaPlayer.Media.Meta(MetadataType.ArtworkURL)))
+							{
+								string artworkPath = new Uri(InternalPlayer.MediaPlayer.Media.Meta(MetadataType.ArtworkURL)).LocalPath;
+								if (System.IO.File.Exists(artworkPath))
+									pictureBox2.LoadAsync(artworkPath);
+							}
+							else
+							{
+								pictureBox2.Image = Properties.Resources.mediaplayerlogo_small;
+								var imageSize = pictureBox2.Image.Size;
+								var fitSize = pictureBox2.ClientSize;
+								pictureBox2.SizeMode = imageSize.Width > fitSize.Width || imageSize.Height > fitSize.Height ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.CenterImage;
+							}
+							artRetrieved = true;
+						}
 					}
 					if (!artRetrieved)
 					{
