@@ -95,9 +95,9 @@ namespace Media_Player
 				MessageBox.Show("Invalid file name.", "ZachMediaPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-			
 			try
 			{
+
 				currentMedia = Path.GetFullPath(fileName);
 				Player.OpenMedia(Path.GetFullPath(fileName));
 				if (Properties.Settings.Default.SaveRecentFiles)
@@ -119,7 +119,7 @@ namespace Media_Player
 			{
 				MessageBox.Show(ex.Message, "ZachMediaPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-		}
+}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{

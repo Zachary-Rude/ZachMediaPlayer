@@ -31,37 +31,44 @@ namespace Media_Player
 				ini = new IniFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs\\ZachMediaPlayer\\preferences.ini"));
 			}
 
-			// General tab
-			chkMinimizePause.Checked = bool.Parse(ini.Read("PauseMinimized", "General"));
-			chkDisplayTitle.Checked = bool.Parse(ini.Read("EnableTitleDisplay", "General"));
-			cbPosition.SelectedIndex = int.Parse(ini.Read("TitleDisplayPosition", "General"));
-			chkTaskbarProgress.Checked = bool.Parse(ini.Read("TaskbarProgress", "General"));
-			lbPosition.Enabled = chkDisplayTitle.Checked;
-			cbPosition.Enabled = chkDisplayTitle.Checked;
+			try
+			{
+				// General tab
+				chkMinimizePause.Checked = bool.Parse(ini.Read("PauseMinimized", "General"));
+				chkDisplayTitle.Checked = bool.Parse(ini.Read("EnableTitleDisplay", "General"));
+				cbPosition.SelectedIndex = int.Parse(ini.Read("TitleDisplayPosition", "General"));
+				chkTaskbarProgress.Checked = bool.Parse(ini.Read("TaskbarProgress", "General"));
+				lbPosition.Enabled = chkDisplayTitle.Checked;
+				cbPosition.Enabled = chkDisplayTitle.Checked;
 
-			// Audio tab
-			tbVolume.Value = int.Parse(ini.Read("DefaultVolume", "Audio"));
-			numGain.Value = (decimal)float.Parse(ini.Read("Gain", "Audio"));
-			//cbStereo.SelectedIndex = int.Parse(ini.Read("StereoMode", "Audio"));
-			chkTimeStretch.Checked = bool.Parse(ini.Read("TimeStretch", "Audio"));
+				// Audio tab
+				tbVolume.Value = int.Parse(ini.Read("DefaultVolume", "Audio"));
+				numGain.Value = (decimal)float.Parse(ini.Read("Gain", "Audio"));
+				//cbStereo.SelectedIndex = int.Parse(ini.Read("StereoMode", "Audio"));
+				chkTimeStretch.Checked = bool.Parse(ini.Read("TimeStretch", "Audio"));
 
-			// MIDI tab
-			if (string.IsNullOrEmpty(ini.Read("SoundFont", "Audio.MIDI")) || string.IsNullOrWhiteSpace(ini.Read("SoundFont", "Audio.MIDI")))
-				txtSoundFontFile.Text = "";
-			else
-				txtSoundFontFile.Text = ini.Read("SoundFont", "Audio.MIDI");
-			chkChorus.Checked = bool.Parse(ini.Read("SynthChorus", "Audio.MIDI"));
-			numSynthGain.Value = (decimal)float.Parse(ini.Read("SynthGain", "Audio.MIDI"));
-			numPolyphony.Value = int.Parse(ini.Read("SynthPolyphony", "Audio.MIDI"));
-			chkReverb.Checked = bool.Parse(ini.Read("SynthReverb", "Audio.MIDI"));
-			numSynthSampleRate.Value = int.Parse(ini.Read("SynthSampleRate", "Audio.MIDI"));
+				// MIDI tab
+				if (string.IsNullOrEmpty(ini.Read("SoundFont", "Audio.MIDI")) || string.IsNullOrWhiteSpace(ini.Read("SoundFont", "Audio.MIDI")))
+					txtSoundFontFile.Text = "";
+				else
+					txtSoundFontFile.Text = ini.Read("SoundFont", "Audio.MIDI");
+				chkChorus.Checked = bool.Parse(ini.Read("SynthChorus", "Audio.MIDI"));
+				numSynthGain.Value = (decimal)float.Parse(ini.Read("SynthGain", "Audio.MIDI"));
+				numPolyphony.Value = int.Parse(ini.Read("SynthPolyphony", "Audio.MIDI"));
+				chkReverb.Checked = bool.Parse(ini.Read("SynthReverb", "Audio.MIDI"));
+				numSynthSampleRate.Value = int.Parse(ini.Read("SynthSampleRate", "Audio.MIDI"));
 
-			// Video tab
-			chkEnableVideo.Checked = bool.Parse(ini.Read("Enable", "Video"));
-			//chkFullscreenVideo.Checked = bool.Parse(ini.Read("PlayVideosInFullScreen", "Video"));
-			//chkGrayscale.Checked = bool.Parse(ini.Read("Grayscale", "Video"));
-			chkFrameDropping.Checked = bool.Parse(ini.Read("DropFrames", "Video"));
-			chkDisableScreensaver.Checked = bool.Parse(ini.Read("DisableScreensaver", "Video"));
+				// Video tab
+				chkEnableVideo.Checked = bool.Parse(ini.Read("Enable", "Video"));
+				//chkFullscreenVideo.Checked = bool.Parse(ini.Read("PlayVideosInFullScreen", "Video"));
+				//chkGrayscale.Checked = bool.Parse(ini.Read("Grayscale", "Video"));
+				chkFrameDropping.Checked = bool.Parse(ini.Read("DropFrames", "Video"));
+				chkDisableScreensaver.Checked = bool.Parse(ini.Read("DisableScreensaver", "Video"));
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 		}
 
 		[DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]

@@ -148,7 +148,7 @@ namespace Media_Player
 			{
 				ini = new IniFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs\\Media Player\\preferences.ini"));
 			}
-			InternalPlayer.MediaPlayer.SetVideoTitleDisplay(bool.Parse(ini.Read("EnableTitleDisplay", "General")) ? (Position)int.Parse(ini.Read("TitleDisplayPosition", "General")) : Position.Disable, 3000);
+			InternalPlayer.MediaPlayer.SetVideoTitleDisplay(ini.Read("EnableTitleDisplay", "General") == "True" ? (Position)int.Parse(ini.Read("TitleDisplayPosition", "General")) : Position.Disable, 3000);
 
 			// Audio section
 			InternalPlayer.MediaPlayer.Media.AddOption(ini.Read("TimeStretch", "Audio") == "True" ? ":audio-time-stretch" : ":no-audio-time-stretch");
@@ -214,6 +214,7 @@ namespace Media_Player
 							break;
 						}
 					}
+					//MessageBox.Show(isVideo.ToString());
 					if (!isVideo)
 					{
 						try
@@ -229,7 +230,24 @@ namespace Media_Player
 								artRetrieved = true;
 							}
 						}
-						catch (Exception)
+						catch (TagLib.CorruptFileException)
+						{
+							if (!string.IsNullOrEmpty(InternalPlayer.MediaPlayer.Media.Meta(MetadataType.ArtworkURL)))
+							{
+								string artworkPath = new Uri(InternalPlayer.MediaPlayer.Media.Meta(MetadataType.ArtworkURL)).LocalPath;
+								if (System.IO.File.Exists(artworkPath))
+									pictureBox2.LoadAsync(artworkPath);
+							}
+							else
+							{
+								pictureBox2.Image = Properties.Resources.mediaplayerlogo_small;
+								var imageSize = pictureBox2.Image.Size;
+								var fitSize = pictureBox2.ClientSize;
+								pictureBox2.SizeMode = imageSize.Width > fitSize.Width || imageSize.Height > fitSize.Height ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.CenterImage;
+							}
+							artRetrieved = true;
+						}
+						if (!artRetrieved)
 						{
 							if (!string.IsNullOrEmpty(InternalPlayer.MediaPlayer.Media.Meta(MetadataType.ArtworkURL)))
 							{
@@ -247,32 +265,15 @@ namespace Media_Player
 							artRetrieved = true;
 						}
 					}
-					if (!artRetrieved)
-					{
-						if (!string.IsNullOrEmpty(InternalPlayer.MediaPlayer.Media.Meta(MetadataType.ArtworkURL)))
-						{
-							string artworkPath = new Uri(InternalPlayer.MediaPlayer.Media.Meta(MetadataType.ArtworkURL)).LocalPath;
-							if (System.IO.File.Exists(artworkPath))
-								pictureBox2.LoadAsync(artworkPath);
-						}
-						else
-						{
-							pictureBox2.Image = Properties.Resources.mediaplayerlogo_small;
-							var imageSize = pictureBox2.Image.Size;
-							var fitSize = pictureBox2.ClientSize;
-							pictureBox2.SizeMode = imageSize.Width > fitSize.Width || imageSize.Height > fitSize.Height ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.CenterImage;
-						}
-						artRetrieved = true;
-					}
 					IniFile ini;
-					if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("VisualStudioEdition")))
-					{
-						ini = new IniFile(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "preferences.ini"));
-					}
-					else
-					{
+					//if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("VisualStudioEdition")))
+					//{
+						//ini = new IniFile(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "preferences.ini"));
+					//}
+					//else
+					//{
 						ini = new IniFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs\\Media Player\\preferences.ini"));
-					}
+					//}
 					timer1.Stop();
 					timer1.Start();
 				}));
