@@ -230,7 +230,7 @@ namespace Media_Player
 								artRetrieved = true;
 							}
 						}
-						catch (TagLib.CorruptFileException)
+						catch (Exception)
 						{
 							if (!string.IsNullOrEmpty(InternalPlayer.MediaPlayer.Media.Meta(MetadataType.ArtworkURL)))
 							{
