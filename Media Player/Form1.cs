@@ -149,12 +149,12 @@ namespace Media_Player
 					int index = 0;
 					var uniques = Properties.Settings.Default.RecentFiles.Cast<IEnumerable>();
 					var unique = uniques.Distinct();
-					foreach (string fldr in unique)
+					foreach (string file in unique)
 					{
-						if (!string.IsNullOrEmpty(fldr) || !string.IsNullOrWhiteSpace(fldr))
+						if (!string.IsNullOrEmpty(file) || !string.IsNullOrWhiteSpace(file))
 						{
 							index++;
-							MenuItem item = new MenuItem(fldr);
+							MenuItem item = new MenuItem(file);
 							item.Click += recentFile_Click;
 							item.Index = index;
 							menuItem22.MenuItems.Add(item);
@@ -252,11 +252,6 @@ namespace Media_Player
 		private void menuItem4_Click(object sender, EventArgs e)
 		{
 			this.Close();
-		}
-
-		private void menuItem10_Click(object sender, EventArgs e)
-		{
-			MessageBox.Show("The wiki is currently a work in progress.", "ZachMediaPlayer", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void menuItem12_Click(object sender, EventArgs e)
@@ -911,7 +906,7 @@ namespace Media_Player
 		{
 			if (!Player.Stopped)
 			{
-				this.Text = string.Format("{0} - ZachMediaPlayer", (currentMedia.StartsWith("dvd://") ? currentMedia : Path.GetFileName(currentMedia)));
+				this.Text = string.Format("{0} - ZachMediaPlayer", (currentMedia.StartsWith("dvd://") ? currentMedia : Path.GetFileName(Player.CurrentMedia)));
 				if (Player.IsPaused)
 				{
 					//playPauseMenuItem.Text = "&Play";
@@ -1023,7 +1018,7 @@ namespace Media_Player
 				if (fbd.ShowDialog() == CommonFileDialogResult.Ok)
 				{
 					currentMedia = string.Format("dvd:///{0}", fbd.FileName);
-					Player.OpenMedia(currentMedia, LibVLCSharp.Shared.FromType.FromLocation);
+					Player.OpenMedia(currentMedia, LibVLCSharp.Shared.FromType.FromLocation, false);
 				}
 			}
 		}

@@ -140,10 +140,23 @@ namespace Media_Player
 		private static void EndReached(MediaPlayer _this)
 		{
 			_this.InternalPlayer.MediaPlayer.Stop();
-			if (_this.PlaylistIndex < _this.Playlist.Count - 1)
+
+			if (_this.LoopMode == RepeatMode.RepeatOne)
 			{
-				_this.PlaylistIndex++;
-				_this.OpenMedia(_this.Playlist[_this.PlaylistIndex]);
+				_this.Play();
+			}
+			else
+			{
+				if (_this.PlaylistIndex + 1 >= _this.Playlist.Count && _this.LoopMode == RepeatMode.Off)
+				{
+					return;
+				}
+				else
+				{
+					if (++_this.PlaylistIndex >= _this.Playlist.Count)
+						_this.PlaylistIndex = 0;
+					_this.OpenMedia(_this.Playlist[_this.PlaylistIndex], FromType.FromPath, false);
+				}
 			}
 		}
 
@@ -188,10 +201,15 @@ namespace Media_Player
 		/// Opens a media file.
 		/// </summary>
 		/// <param name="path">The file path of the media.</param>
-		public void OpenMedia(string path, FromType type = FromType.FromPath)
+		public void OpenMedia(string path, FromType type = FromType.FromPath, bool addToPlaylist = true)
 		{
 			if (System.IO.File.Exists(path))
 			{
+				if (addToPlaylist)
+				{
+					Playlist.Add(path);
+					PlaylistIndex++;
+				}
 				InternalPlayer.MediaPlayer.Play(new Media(libVLC, path, type));
 				_currentMedia = path;
 				UpdateSettings();
@@ -292,14 +310,14 @@ namespace Media_Player
 						}
 					}
 					IniFile ini;
-					//if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("VisualStudioEdition")))
-					//{
-						//ini = new IniFile(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "preferences.ini"));
-					//}
-					//else
-					//{
+					if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("VisualStudioEdition")))
+					{
+						ini = new IniFile(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "..\\..\\Inno", "preferences.ini"));
+					}
+					else
+					{
 						ini = new IniFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs\\Media Player\\preferences.ini"));
-					//}
+					}
 					timer1.Stop();
 					timer1.Start();
 				}));
@@ -321,7 +339,7 @@ namespace Media_Player
 			{
 				if (!string.IsNullOrEmpty(_previousMedia))
 				{
-					OpenMedia(_previousMedia);
+					OpenMedia(_previousMedia, FromType.FromPath, false);
 				}
 			}
 		}
@@ -408,7 +426,7 @@ namespace Media_Player
 			{
 				if (!string.IsNullOrEmpty(_previousMedia))
 				{
-					OpenMedia(_previousMedia);
+					OpenMedia(_previousMedia, FromType.FromPath, false);
 				}
 			}
 		}
@@ -423,6 +441,7 @@ namespace Media_Player
 			timer1.Stop();
 			tbSeek.Value = 0;
 			tbSeek.Maximum = 0;
+			tbSeek.Enabled = false;
 			lblCurrentTime.Text = "-:--";
 			lblTotalTime.Text = "-:--";
 			_previousMedia = _currentMedia;
@@ -609,13 +628,42 @@ namespace Media_Player
 			var loopModeTemp = LoopMode.Next();
 			LoopMode = loopModeTemp;
 		}
+
+		private void btnPrevious_Click(object sender, EventArgs e)
+		{
+			if (PlaylistIndex > 0)
+			{
+				Stop();
+				PlaylistIndex--;
+				OpenMedia(Playlist[PlaylistIndex], FromType.FromPath, false);
+			}
+		}
+
+		private void btnNext_Click(object sender, EventArgs e)
+		{
+			if (++PlaylistIndex >= Playlist.Count)
+				PlaylistIndex = 0;
+
+			Stop();
+			OpenMedia(Playlist[PlaylistIndex], FromType.FromPath, false);
+		}
+
+		private void tbSeek_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				double value = ((double)e.X / (double)tbSeek.Width) * (tbSeek.Maximum - tbSeek.Minimum);
+				InternalPlayer.MediaPlayer.SeekTo(TimeSpan.FromMilliseconds(value));
+				tbSeek.Value = (int)value;
+			}
+		}
 	}
 
 	public static class EnumExtensions
 	{
 		public static T Next<T>(this T src) where T : struct
 		{
-			if (!typeof(T).IsEnum) throw new ArgumentException(String.Format("Argument {0} is not an Enum", typeof(T).FullName));
+			if (!typeof(T).IsEnum) throw new ArgumentException(string.Format("Argument {0} is not an Enum", typeof(T).FullName));
 
 			T[] Arr = (T[])Enum.GetValues(src.GetType());
 			int j = Array.IndexOf<T>(Arr, src) + 1;

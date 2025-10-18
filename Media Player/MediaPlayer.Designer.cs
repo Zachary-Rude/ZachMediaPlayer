@@ -99,6 +99,7 @@
 			this.tbSeek.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tbSeek.AutoSize = false;
+			this.tbSeek.Enabled = false;
 			this.tbSeek.Location = new System.Drawing.Point(34, 3);
 			this.tbSeek.Maximum = 0;
 			this.tbSeek.Name = "tbSeek";
@@ -106,7 +107,8 @@
 			this.tbSeek.TabIndex = 9;
 			this.tbSeek.TickStyle = System.Windows.Forms.TickStyle.None;
 			this.toolTip1.SetToolTip(this.tbSeek, "Seek");
-			this.tbSeek.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+			this.tbSeek.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbSeek_MouseDown);
+			this.tbSeek.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tbSeek_MouseDown);
 			// 
 			// btnRepeat
 			// 
@@ -133,6 +135,7 @@
 			this.btnNext.TabIndex = 15;
 			this.toolTip1.SetToolTip(this.btnNext, "Next");
 			this.btnNext.UseVisualStyleBackColor = true;
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
 			this.btnNext.Enter += new System.EventHandler(this.button_Enter);
 			// 
 			// btnPrevious
@@ -146,6 +149,7 @@
 			this.btnPrevious.TabIndex = 14;
 			this.toolTip1.SetToolTip(this.btnPrevious, "Previous");
 			this.btnPrevious.UseVisualStyleBackColor = true;
+			this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
 			this.btnPrevious.Enter += new System.EventHandler(this.button_Enter);
 			// 
 			// btnPlaylist
