@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # EXE - built executables
 *.exe
+/Media Player/Inno/preferences.ini
