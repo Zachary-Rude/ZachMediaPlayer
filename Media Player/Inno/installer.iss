@@ -4,7 +4,7 @@
 #define MyAppName "ZachMediaPlayer"
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Zachary Rude"
-#define MyAppExeName "Media Player.exe"
+#define MyAppExeName "ZachMediaPlayer.exe"
 #define MyAppAssocName "MP3 Audio"
 #define MyAppAssocExt ".mp3"
 #define MyAppAssocKey StringChange(MyAppName, " ", "") + MyAppAssocExt

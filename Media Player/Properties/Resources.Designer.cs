@@ -103,16 +103,6 @@ namespace Media_Player.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap baseline_help_black_24dp {
-            get {
-                object obj = ResourceManager.GetObject("baseline_help_black_24dp", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap baseline_info_black_24dp {
             get {
                 object obj = ResourceManager.GetObject("baseline_info_black_24dp", resourceCulture);
@@ -203,16 +193,6 @@ namespace Media_Player.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap baseline_settings_black_24dp {
-            get {
-                object obj = ResourceManager.GetObject("baseline_settings_black_24dp", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap baseline_stop_black_16dp {
             get {
                 object obj = ResourceManager.GetObject("baseline_stop_black_16dp", resourceCulture);
@@ -276,6 +256,26 @@ namespace Media_Player.Properties {
         public static System.Drawing.Bitmap fast_rewind_24dp_000000 {
             get {
                 object obj = ResourceManager.GetObject("fast_rewind_24dp_000000", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap help_24dp_000 {
+            get {
+                object obj = ResourceManager.GetObject("help_24dp_000", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap history_16dp_000 {
+            get {
+                object obj = ResourceManager.GetObject("history_16dp_000", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -356,6 +356,16 @@ namespace Media_Player.Properties {
         public static System.Drawing.Bitmap repeat_one_on_24dp_000000 {
             get {
                 object obj = ResourceManager.GetObject("repeat_one_on_24dp_000000", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap settings_16dp_000 {
+            get {
+                object obj = ResourceManager.GetObject("settings_16dp_000", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

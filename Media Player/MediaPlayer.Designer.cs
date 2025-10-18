@@ -119,7 +119,7 @@
 			this.btnRepeat.TabIndex = 16;
 			this.toolTip1.SetToolTip(this.btnRepeat, "Repeat");
 			this.btnRepeat.UseVisualStyleBackColor = true;
-			this.btnRepeat.Visible = false;
+			this.btnRepeat.Click += new System.EventHandler(this.btnRepeat_Click);
 			this.btnRepeat.Enter += new System.EventHandler(this.button_Enter);
 			// 
 			// btnNext
@@ -133,7 +133,6 @@
 			this.btnNext.TabIndex = 15;
 			this.toolTip1.SetToolTip(this.btnNext, "Next");
 			this.btnNext.UseVisualStyleBackColor = true;
-			this.btnNext.Visible = false;
 			this.btnNext.Enter += new System.EventHandler(this.button_Enter);
 			// 
 			// btnPrevious
@@ -147,7 +146,6 @@
 			this.btnPrevious.TabIndex = 14;
 			this.toolTip1.SetToolTip(this.btnPrevious, "Previous");
 			this.btnPrevious.UseVisualStyleBackColor = true;
-			this.btnPrevious.Visible = false;
 			this.btnPrevious.Enter += new System.EventHandler(this.button_Enter);
 			// 
 			// btnPlaylist
@@ -159,9 +157,8 @@
 			this.btnPlaylist.Name = "btnPlaylist";
 			this.btnPlaylist.Size = new System.Drawing.Size(33, 33);
 			this.btnPlaylist.TabIndex = 13;
-			this.toolTip1.SetToolTip(this.btnPlaylist, "View playlist");
+			this.toolTip1.SetToolTip(this.btnPlaylist, "View Playlist");
 			this.btnPlaylist.UseVisualStyleBackColor = true;
-			this.btnPlaylist.Visible = false;
 			this.btnPlaylist.Enter += new System.EventHandler(this.button_Enter);
 			// 
 			// btnFastForward
@@ -173,7 +170,7 @@
 			this.btnFastForward.Name = "btnFastForward";
 			this.btnFastForward.Size = new System.Drawing.Size(33, 33);
 			this.btnFastForward.TabIndex = 12;
-			this.toolTip1.SetToolTip(this.btnFastForward, "Fast forward");
+			this.toolTip1.SetToolTip(this.btnFastForward, "Fast Forward");
 			this.btnFastForward.UseVisualStyleBackColor = true;
 			this.btnFastForward.Enter += new System.EventHandler(this.button_Enter);
 			this.btnFastForward.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFastForward_MouseDown);
@@ -211,6 +208,7 @@
 			// btnPlay
 			// 
 			this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
 			this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnPlay.Image = global::Media_Player.Properties.Resources.baseline_play_arrow_black_24dp;
 			this.btnPlay.Location = new System.Drawing.Point(3, 461);

@@ -77,7 +77,20 @@ namespace Media_Player
 
 		private int _previousVolume;
 
-		List<string> playlist = new List<string>();
+		public List<string> Playlist = new List<string>();
+
+		public int PlaylistIndex = 0;
+
+		public delegate void mediaPlayerDelegateType(MediaPlayer _this);
+
+		public enum RepeatMode
+		{
+			Off,
+			RepeatAll,
+			RepeatOne
+		}
+
+		public RepeatMode LoopMode { get; set; } = RepeatMode.Off;
 
 		public MediaPlayer()
 		{
@@ -110,9 +123,9 @@ namespace Media_Player
 			libVLC = new LibVLC(options);
 			InternalPlayer.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(libVLC);
 			playButtonTimer.Start();
+			InternalPlayer.MediaPlayer.EndReached += InternalPlayer_EndReached;
 			InternalPlayer.MediaPlayer.Stopped += InternalPlayer_Stopped;
 			InternalPlayer.MediaPlayer.Playing += InternalPlayer_Playing;
-			InternalPlayer.MediaPlayer.EndReached += InternalPlayer_EndReached;
 			InternalPlayer.MediaPlayer.SetVideoTitleDisplay(bool.Parse(ini.Read("EnableTitleDisplay", "General")) ? (Position)int.Parse(ini.Read("TitleDisplayPosition", "General")) : Position.Disable, 3000);
 			pictureBox2.Parent = InternalPlayer;
 			pictureBox2.BackColor = Color.Transparent;
@@ -121,8 +134,21 @@ namespace Media_Player
 
 		private void InternalPlayer_EndReached(object sender, EventArgs e)
 		{
-			ThreadPool.QueueUserWorkItem(_ => Stop());
+			this.BeginInvoke(endReachedDelegate, this);
 		}
+
+		private static void EndReached(MediaPlayer _this)
+		{
+			_this.InternalPlayer.MediaPlayer.Stop();
+			if (_this.PlaylistIndex < _this.Playlist.Count - 1)
+			{
+				_this.PlaylistIndex++;
+				_this.OpenMedia(_this.Playlist[_this.PlaylistIndex]);
+			}
+		}
+
+		mediaPlayerDelegateType endReachedDelegate = new mediaPlayerDelegateType(EndReached);
+
 		protected void OnPaused(EventArgs e)
 		{
 			EventHandler handler = Paused;
@@ -350,7 +376,7 @@ namespace Media_Player
 					{
 						tbSeek.Value = 0;
 					}
-					lblCurrentTime.Text = TimeSpan.FromMilliseconds(InternalPlayer.MediaPlayer.Time).ToString(TimeSpan.FromMilliseconds(tbSeek.Maximum).Hours >= 1 ? @"h':'mm':'ss" : @"m':'ss");
+					lblCurrentTime.Text = TimeSpan.FromMilliseconds(InternalPlayer.MediaPlayer.Time).ToString(TimeSpan.FromMilliseconds(InternalPlayer.MediaPlayer.Time).Hours >= 1 ? @"h':'mm':'ss" : @"m':'ss");
 				}
 				else
 				{
@@ -416,6 +442,19 @@ namespace Media_Player
 			InternalPlayer.MediaPlayer.Volume = Volume;
 
 			pictureBox1.Image = Volume > 50 ? Properties.Resources.baseline_volume_up_black_24dp : (Volume <= 50 && Volume > 0 ? Properties.Resources.baseline_volume_down_24dp_000000 : Properties.Resources.baseline_volume_off_24dp_000000);
+
+			switch (LoopMode)
+			{
+				case RepeatMode.Off:
+					btnRepeat.Image = Properties.Resources.repeat_24dp_000000;
+					break;
+				case RepeatMode.RepeatAll:
+					btnRepeat.Image = Properties.Resources.repeat_on_24dp_000000;
+					break;
+				case RepeatMode.RepeatOne:
+					btnRepeat.Image = Properties.Resources.repeat_one_on_24dp_000000;
+					break;
+			}
 
 			InternalPlayer.Anchor = ShowControls ? AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right : AnchorStyles.None;
 			InternalPlayer.Dock = ShowControls ? DockStyle.None : DockStyle.Fill;
@@ -563,6 +602,24 @@ namespace Media_Player
 			}
 			tbVolume.Value = Volume;
 			toolTip1.SetToolTip(tbVolume, $"Volume: {Volume}%");
+		}
+
+		private void btnRepeat_Click(object sender, EventArgs e)
+		{
+			var loopModeTemp = LoopMode.Next();
+			LoopMode = loopModeTemp;
+		}
+	}
+
+	public static class EnumExtensions
+	{
+		public static T Next<T>(this T src) where T : struct
+		{
+			if (!typeof(T).IsEnum) throw new ArgumentException(String.Format("Argument {0} is not an Enum", typeof(T).FullName));
+
+			T[] Arr = (T[])Enum.GetValues(src.GetType());
+			int j = Array.IndexOf<T>(Arr, src) + 1;
+			return (Arr.Length == j) ? Arr[0] : Arr[j];
 		}
 	}
 }

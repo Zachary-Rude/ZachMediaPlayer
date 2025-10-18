@@ -35,6 +35,9 @@
 			this.menuItem2 = new System.Windows.Forms.MenuItem();
 			this.menuItem8 = new System.Windows.Forms.MenuItem();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
+			this.menuItem22 = new System.Windows.Forms.MenuItem();
+			this.menuItem24 = new System.Windows.Forms.MenuItem();
+			this.menuItem23 = new System.Windows.Forms.MenuItem();
 			this.menuItem4 = new System.Windows.Forms.MenuItem();
 			this.menuItem6 = new System.Windows.Forms.MenuItem();
 			this.menuItemFullScreen = new System.Windows.Forms.MenuItem();
@@ -53,15 +56,10 @@
 			this.menuItem7 = new System.Windows.Forms.MenuItem();
 			this.menuItemSettings = new System.Windows.Forms.MenuItem();
 			this.menuItem9 = new System.Windows.Forms.MenuItem();
-			this.menuItem10 = new System.Windows.Forms.MenuItem();
-			this.menuItem11 = new System.Windows.Forms.MenuItem();
 			this.menuItem12 = new System.Windows.Forms.MenuItem();
 			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
 			this.vistaMenu1 = new wyDay.Controls.VistaMenu(this.components);
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.menuItem22 = new System.Windows.Forms.MenuItem();
-			this.menuItem23 = new System.Windows.Forms.MenuItem();
-			this.menuItem24 = new System.Windows.Forms.MenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.vistaMenu1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -69,9 +67,9 @@
 			// 
 			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem1,
-            this.menuItem6,
             this.menuItem5,
             this.menuItem7,
+            this.menuItem6,
             this.menuItem9});
 			// 
 			// menuItem1
@@ -96,7 +94,6 @@
 			// 
 			// menuItem8
 			// 
-			this.vistaMenu1.SetImage(this.menuItem8, global::Media_Player.Properties.Resources.album_16dp_000000);
 			this.menuItem8.Index = 1;
 			this.menuItem8.Text = "Open &DVD...";
 			this.menuItem8.Click += new System.EventHandler(this.menuItem8_Click_1);
@@ -105,6 +102,25 @@
 			// 
 			this.menuItem3.Index = 2;
 			this.menuItem3.Text = "-";
+			// 
+			// menuItem22
+			// 
+			this.vistaMenu1.SetImage(this.menuItem22, global::Media_Player.Properties.Resources.history_16dp_000);
+			this.menuItem22.Index = 3;
+			this.menuItem22.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem24});
+			this.menuItem22.Text = "&Recent Files";
+			// 
+			// menuItem24
+			// 
+			this.menuItem24.Index = 0;
+			this.menuItem24.Text = "Clear";
+			this.menuItem24.Click += new System.EventHandler(this.menuItem24_Click);
+			// 
+			// menuItem23
+			// 
+			this.menuItem23.Index = 4;
+			this.menuItem23.Text = "-";
 			// 
 			// menuItem4
 			// 
@@ -116,7 +132,7 @@
 			// 
 			// menuItem6
 			// 
-			this.menuItem6.Index = 1;
+			this.menuItem6.Index = 3;
 			this.menuItem6.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemFullScreen});
 			this.menuItem6.Text = "&View";
@@ -131,7 +147,7 @@
 			// 
 			// menuItem5
 			// 
-			this.menuItem5.Index = 2;
+			this.menuItem5.Index = 1;
 			this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.playPauseMenuItem,
             this.stopMenuItem,
@@ -224,14 +240,14 @@
 			// 
 			// menuItem7
 			// 
-			this.menuItem7.Index = 3;
+			this.menuItem7.Index = 2;
 			this.menuItem7.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemSettings});
 			this.menuItem7.Text = "&Tools";
 			// 
 			// menuItemSettings
 			// 
-			this.vistaMenu1.SetImage(this.menuItemSettings, global::Media_Player.Properties.Resources.baseline_settings_black_24dp);
+			this.vistaMenu1.SetImage(this.menuItemSettings, global::Media_Player.Properties.Resources.settings_16dp_000);
 			this.menuItemSettings.Index = 0;
 			this.menuItemSettings.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
 			this.menuItemSettings.Text = "&Settings";
@@ -241,28 +257,13 @@
 			// 
 			this.menuItem9.Index = 4;
 			this.menuItem9.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem10,
-            this.menuItem11,
             this.menuItem12});
 			this.menuItem9.Text = "&Help";
-			// 
-			// menuItem10
-			// 
-			this.vistaMenu1.SetImage(this.menuItem10, global::Media_Player.Properties.Resources.baseline_help_black_24dp);
-			this.menuItem10.Index = 0;
-			this.menuItem10.Shortcut = System.Windows.Forms.Shortcut.F1;
-			this.menuItem10.Text = "View the &Wiki";
-			this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
-			// 
-			// menuItem11
-			// 
-			this.menuItem11.Index = 1;
-			this.menuItem11.Text = "-";
 			// 
 			// menuItem12
 			// 
 			this.vistaMenu1.SetImage(this.menuItem12, global::Media_Player.Properties.Resources.baseline_info_black_24dp);
-			this.menuItem12.Index = 2;
+			this.menuItem12.Index = 0;
 			this.menuItem12.Shortcut = System.Windows.Forms.Shortcut.ShiftF1;
 			this.menuItem12.Text = "&About";
 			this.menuItem12.Click += new System.EventHandler(this.menuItem12_Click);
@@ -280,24 +281,6 @@
 			// 
 			this.timer1.Enabled = true;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-			// 
-			// menuItem22
-			// 
-			this.menuItem22.Index = 3;
-			this.menuItem22.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem24});
-			this.menuItem22.Text = "&Recent Files";
-			// 
-			// menuItem23
-			// 
-			this.menuItem23.Index = 4;
-			this.menuItem23.Text = "-";
-			// 
-			// menuItem24
-			// 
-			this.menuItem24.Index = 0;
-			this.menuItem24.Text = "Clear";
-			this.menuItem24.Click += new System.EventHandler(this.menuItem24_Click);
 			// 
 			// Form1
 			// 
@@ -329,8 +312,6 @@
         private System.Windows.Forms.MenuItem menuItem3;
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.MenuItem menuItem9;
-        private System.Windows.Forms.MenuItem menuItem10;
-        private System.Windows.Forms.MenuItem menuItem11;
         private System.Windows.Forms.MenuItem menuItem12;
         private System.Windows.Forms.MenuItem menuItem5;
         private System.Windows.Forms.MenuItem playPauseMenuItem;
