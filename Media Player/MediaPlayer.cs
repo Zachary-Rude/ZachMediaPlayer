@@ -212,6 +212,7 @@ namespace Media_Player
 				}
 				InternalPlayer.MediaPlayer.Play(new Media(libVLC, path, type));
 				_currentMedia = path;
+				tbSeek.Enabled = true;
 				UpdateSettings();
 				InternalPlayer.MediaPlayer.Media.Parse(MediaParseOptions.ParseLocal);
 				InternalPlayer.MediaPlayer.Media.ParsedChanged += Media_ParsedChanged;

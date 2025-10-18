@@ -1025,7 +1025,7 @@ namespace Media_Player
 
 		private void Form1_Activated(object sender, EventArgs e)
 		{
-			if (this.WindowState == FormWindowState.Minimized && !previouslyPaused && bool.Parse(ini.Read("PauseMinimized", "General")))
+			if (this.WindowState == FormWindowState.Minimized && !previouslyPaused && !Player.Stopped && bool.Parse(ini.Read("PauseMinimized", "General")))
 			{
 				Player.Play();
 			}
@@ -1043,9 +1043,9 @@ namespace Media_Player
 						Player.Pause();
 					}
 				}
-				if (lastState == FormWindowState.Minimized && bool.Parse(ini.Read("PauseMinimized", "General")) && !Player.Stopped)
+				if (lastState == FormWindowState.Minimized && bool.Parse(ini.Read("PauseMinimized", "General")))
 				{
-					if (!previouslyPaused)
+					if (!previouslyPaused && !Player.Stopped)
 					{
 						Player.Play();
 					}

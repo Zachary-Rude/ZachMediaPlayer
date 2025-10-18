@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("General");
-			System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("MIDI");
-			System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Audio", new System.Windows.Forms.TreeNode[] {
-            treeNode6});
-			System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Video");
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
+			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("MIDI");
+			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Audio", new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Video");
 			this.btnOk = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -152,22 +152,22 @@
 			this.treeView1.HideSelection = false;
 			this.treeView1.Location = new System.Drawing.Point(0, 0);
 			this.treeView1.Name = "treeView1";
-			treeNode5.Name = "Node0";
-			treeNode5.Tag = "tpGeneral";
-			treeNode5.Text = "General";
-			treeNode6.Name = "Node3";
-			treeNode6.Tag = "tpMIDI";
-			treeNode6.Text = "MIDI";
-			treeNode7.Name = "Node1";
-			treeNode7.Tag = "tpAudio";
-			treeNode7.Text = "Audio";
-			treeNode8.Name = "Node4";
-			treeNode8.Tag = "tpVideo";
-			treeNode8.Text = "Video";
+			treeNode1.Name = "Node0";
+			treeNode1.Tag = "tpGeneral";
+			treeNode1.Text = "General";
+			treeNode2.Name = "Node3";
+			treeNode2.Tag = "tpMIDI";
+			treeNode2.Text = "MIDI";
+			treeNode3.Name = "Node1";
+			treeNode3.Tag = "tpAudio";
+			treeNode3.Text = "Audio";
+			treeNode4.Name = "Node4";
+			treeNode4.Tag = "tpVideo";
+			treeNode4.Text = "Video";
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode7,
-            treeNode8});
+            treeNode1,
+            treeNode3,
+            treeNode4});
 			this.treeView1.Size = new System.Drawing.Size(179, 444);
 			this.treeView1.TabIndex = 0;
 			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
@@ -582,7 +582,6 @@
 			this.txtSoundFontFile.Name = "txtSoundFontFile";
 			this.txtSoundFontFile.Size = new System.Drawing.Size(213, 23);
 			this.txtSoundFontFile.TabIndex = 10;
-			this.txtSoundFontFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// btnBrowse
 			// 

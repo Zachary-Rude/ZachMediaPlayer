@@ -100,6 +100,7 @@
 			this.label4.Size = new System.Drawing.Size(193, 30);
 			this.label4.TabIndex = 5;
 			this.label4.Text = "Made possible by LibVLC and other\r\nopen-source libraries";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// AboutForm
 			// 
