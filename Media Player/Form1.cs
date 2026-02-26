@@ -24,8 +24,12 @@ namespace Media_Player
 	{
 		bool isVideo = false;
 		private ThumbnailToolBarButton toolBarPauseButton;
+		private ThumbnailToolBarButton toolBarPreviousButton;
+		private ThumbnailToolBarButton toolBarNextButton;
 		Icon playIcon;
 		Icon pauseIcon;
+		Icon previousIcon;
+		Icon nextIcon;
 		FormWindowState lastState = FormWindowState.Normal;
 		bool previouslyPaused = false;
 		public Form1()
@@ -54,12 +58,28 @@ namespace Media_Player
 			pauseIcon = Icon.FromHandle(Hicon);
 			toolBarPauseButton = new ThumbnailToolBarButton(playIcon, "Play");
 			toolBarPauseButton.Click += toolBarPauseButton_Click;
-			TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, toolBarPauseButton);
+			previousIcon = Icon.FromHandle(Properties.Resources.skip_previous_16dp_FFFFFF.GetHicon());
+			toolBarPreviousButton = new ThumbnailToolBarButton(previousIcon, "Previous");
+			toolBarPreviousButton.Click += toolBarPreviousButton_Click;
+			nextIcon = Icon.FromHandle(Properties.Resources.skip_next_16dp_FFFFFF.GetHicon());
+			toolBarNextButton = new ThumbnailToolBarButton(nextIcon, "Next");
+			toolBarNextButton.Click += toolBarNextButton_Click;
+			TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, toolBarPreviousButton, toolBarPauseButton, toolBarNextButton);
 			this.Load += this.Form1_Load;
 			Player.InternalPlayer.MediaPlayer.Paused += this.mediaPlayer_Paused;
 			Player.InternalPlayer.MediaPlayer.Playing += this.mediaPlayer_Playing;
 			Player.InternalPlayer.MediaPlayer.Stopped += this.mediaPlayer_Stopped;
 			UpdateRecentFileList();
+		}
+
+		private void toolBarNextButton_Click(object sender, ThumbnailButtonClickedEventArgs e)
+		{
+			Player.Next();
+		}
+
+		private void toolBarPreviousButton_Click(object sender, ThumbnailButtonClickedEventArgs e)
+		{
+			Player.Previous();
 		}
 
 		private void mediaPlayer_Stopped(object sender, EventArgs e)

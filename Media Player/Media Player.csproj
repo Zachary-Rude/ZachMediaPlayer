@@ -278,6 +278,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\skip_previous_16dp_FFFFFF.png" />
+    <None Include="Resources\skip_next_16dp_FFFFFF.png" />
     <None Include="Resources\tune_16dp_000000.png" />
     <None Include="Resources\settings_16dp_000.png" />
     <None Include="Resources\history_16dp_000.png" />

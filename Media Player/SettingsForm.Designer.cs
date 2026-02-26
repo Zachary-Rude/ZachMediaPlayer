@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
-			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("MIDI");
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Audio", new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Video");
+			System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("General");
+			System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("MIDI");
+			System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Audio", new System.Windows.Forms.TreeNode[] {
+            treeNode10});
+			System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Video");
 			this.btnOk = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -152,22 +152,22 @@
 			this.treeView1.HideSelection = false;
 			this.treeView1.Location = new System.Drawing.Point(0, 0);
 			this.treeView1.Name = "treeView1";
-			treeNode1.Name = "Node0";
-			treeNode1.Tag = "tpGeneral";
-			treeNode1.Text = "General";
-			treeNode2.Name = "Node3";
-			treeNode2.Tag = "tpMIDI";
-			treeNode2.Text = "MIDI";
-			treeNode3.Name = "Node1";
-			treeNode3.Tag = "tpAudio";
-			treeNode3.Text = "Audio";
-			treeNode4.Name = "Node4";
-			treeNode4.Tag = "tpVideo";
-			treeNode4.Text = "Video";
+			treeNode9.Name = "Node0";
+			treeNode9.Tag = "tpGeneral";
+			treeNode9.Text = "General";
+			treeNode10.Name = "Node3";
+			treeNode10.Tag = "tpMIDI";
+			treeNode10.Text = "MIDI";
+			treeNode11.Name = "Node1";
+			treeNode11.Tag = "tpAudio";
+			treeNode11.Text = "Audio";
+			treeNode12.Name = "Node4";
+			treeNode12.Tag = "tpVideo";
+			treeNode12.Text = "Video";
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode3,
-            treeNode4});
+            treeNode9,
+            treeNode11,
+            treeNode12});
 			this.treeView1.Size = new System.Drawing.Size(179, 444);
 			this.treeView1.TabIndex = 0;
 			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);

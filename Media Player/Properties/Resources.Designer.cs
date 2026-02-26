@@ -383,6 +383,16 @@ namespace Media_Player.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap skip_next_16dp_FFFFFF {
+            get {
+                object obj = ResourceManager.GetObject("skip_next_16dp_FFFFFF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap skip_next_24dp_000000 {
             get {
                 object obj = ResourceManager.GetObject("skip_next_24dp_000000", resourceCulture);
@@ -396,6 +406,16 @@ namespace Media_Player.Properties {
         public static System.Drawing.Bitmap skip_previous_16dp_000000 {
             get {
                 object obj = ResourceManager.GetObject("skip_previous_16dp_000000", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap skip_previous_16dp_FFFFFF {
+            get {
+                object obj = ResourceManager.GetObject("skip_previous_16dp_FFFFFF", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

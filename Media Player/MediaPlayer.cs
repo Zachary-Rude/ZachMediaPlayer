@@ -118,7 +118,8 @@ namespace Media_Player
 				$"--synth-sample-rate={ini.Read("SynthSampleRate", "Audio.MIDI")}",
 				// Video section
 				(ini.Read("Enable", "Video") == "True" ? "--video" : "--no-video"),
-				(ini.Read("DisableScreensaver", "Video") == "True" ? "--disable-screensaver" : "--no-disable-screensaver")
+				(ini.Read("DisableScreensaver", "Video") == "True" ? "--disable-screensaver" : "--no-disable-screensaver"),
+				"--no-dvdnav-menu" // Disable starting directly in menu
 			};
 			libVLC = new LibVLC(options);
 			InternalPlayer.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(libVLC);
@@ -181,7 +182,7 @@ namespace Media_Player
 			IniFile ini;
 			if (isRunningInVS)
 			{
-				ini = new IniFile(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "preferences.ini"));
+				ini = new IniFile(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "..\\..\\Inno", "preferences.ini"));
 			}
 			else
 			{
@@ -203,7 +204,7 @@ namespace Media_Player
 		/// <param name="path">The file path of the media.</param>
 		public void OpenMedia(string path, FromType type = FromType.FromPath, bool addToPlaylist = true)
 		{
-			if (System.IO.File.Exists(path))
+			if (System.IO.File.Exists(path) || type == FromType.FromLocation)
 			{
 				if (addToPlaylist)
 				{
@@ -427,7 +428,7 @@ namespace Media_Player
 			{
 				if (!string.IsNullOrEmpty(_previousMedia))
 				{
-					OpenMedia(_previousMedia, FromType.FromPath, false);
+					OpenMedia(_previousMedia, (_previousMedia.StartsWith("dvd:///") ? FromType.FromLocation : FromType.FromPath), false);
 				}
 			}
 		}
@@ -630,23 +631,56 @@ namespace Media_Player
 			LoopMode = loopModeTemp;
 		}
 
+		/// <summary>
+		/// Jumps to the previous playlist item.
+		/// </summary>
+		public void Previous()
+		{
+			if (Playlist.Count > 0)
+			{
+				if (PlaylistIndex > 0)
+					PlaylistIndex--;
+				Stop();
+				OpenMedia(Playlist[PlaylistIndex], FromType.FromPath, false);
+			}
+		}
+
 		private void btnPrevious_Click(object sender, EventArgs e)
 		{
-			if (PlaylistIndex > 0)
+			if (Playlist.Count > 0)
 			{
+				if (PlaylistIndex > 0)
+					PlaylistIndex--;
 				Stop();
-				PlaylistIndex--;
+				OpenMedia(Playlist[PlaylistIndex], FromType.FromPath, false);
+			}
+		}
+
+		/// <summary>
+		/// Jumps to the next playlist item.
+		/// </summary>
+		public void Next()
+		{
+			if (Playlist.Count > 0)
+			{
+				if (++PlaylistIndex >= Playlist.Count)
+					PlaylistIndex = 0;
+
+				Stop();
 				OpenMedia(Playlist[PlaylistIndex], FromType.FromPath, false);
 			}
 		}
 
 		private void btnNext_Click(object sender, EventArgs e)
 		{
-			if (++PlaylistIndex >= Playlist.Count)
-				PlaylistIndex = 0;
+			if (Playlist.Count > 0)
+			{
+				if (++PlaylistIndex >= Playlist.Count)
+					PlaylistIndex = 0;
 
-			Stop();
-			OpenMedia(Playlist[PlaylistIndex], FromType.FromPath, false);
+				Stop();
+				OpenMedia(Playlist[PlaylistIndex], FromType.FromPath, false);
+			}
 		}
 
 		private void tbSeek_MouseDown(object sender, MouseEventArgs e)
