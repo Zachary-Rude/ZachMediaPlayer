@@ -403,7 +403,7 @@ namespace Media_Player
 					lblCurrentTime.Text = "0:00";
 				}
 				if (_showRemainingTime)
-					lblTotalTime.Text = TimeSpan.FromMilliseconds(tbSeek.Maximum - InternalPlayer.MediaPlayer.Time).ToString(TimeSpan.FromMilliseconds(tbSeek.Maximum).Hours >= 1 ? @"'-'h':'mm':'ss" : @"'-'m':'ss");
+					lblTotalTime.Text = TimeSpan.FromMilliseconds(tbSeek.Maximum - InternalPlayer.MediaPlayer.Time).ToString(TimeSpan.FromMilliseconds(tbSeek.Maximum - InternalPlayer.MediaPlayer.Time).Hours >= 1 ? @"'-'h':'mm':'ss" : @"'-'m':'ss");
 				else
 					lblTotalTime.Text = TimeSpan.FromMilliseconds(tbSeek.Maximum).ToString(TimeSpan.FromMilliseconds(tbSeek.Maximum).Hours >= 1 ? @"h':'mm':'ss" : @"m':'ss");
 			}
